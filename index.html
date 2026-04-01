@@ -3,10 +3,515 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio</title>
+    <title>Everton Barbosa Portfolio</title>
+    <meta
+      name="description"
+      content="Portfólio profissional moderno e estruturado, destacando trajetória administrativa, financeira e técnica, focado em organização e disciplina."
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://media.base44.com/images/public/69b9bef659ad1ac6a28ced70/2b40b7daa_logo.png"
+    />
+    <style>
+      :root {
+        --background: hsl(38 35% 97%);
+        --foreground: hsl(220 22% 16%);
+        --card: hsl(36 38% 99%);
+        --card-foreground: hsl(220 22% 16%);
+        --primary: hsl(215 50% 23%);
+        --primary-foreground: hsl(0 0% 100%);
+        --secondary: hsl(34 34% 92%);
+        --muted-foreground: hsl(220 9% 36%);
+        --border: hsl(30 20% 84%);
+        --shadow: 0 14px 34px rgba(74, 58, 35, 0.08);
+        --radius: 16px;
+      }
+
+      html.dark {
+        --background: hsl(220 20% 7%);
+        --foreground: hsl(0 0% 98%);
+        --card: hsl(220 20% 10%);
+        --card-foreground: hsl(0 0% 98%);
+        --primary: hsl(210 100% 60%);
+        --primary-foreground: hsl(220 20% 7%);
+        --secondary: hsl(220 15% 15%);
+        --muted-foreground: hsl(220 10% 70%);
+        --border: hsl(220 15% 20%);
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", sans-serif;
+        background: var(--background);
+        color: var(--foreground);
+        transition: background-color 0.25s ease, color 0.25s ease;
+      }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+      .site-header { position: fixed; inset: 0 0 auto 0; z-index: 1000; transition: all 0.25s ease; }
+      .site-header.scrolled { background: color-mix(in srgb, var(--background) 92%, transparent); border-bottom: 1px solid var(--border); backdrop-filter: blur(16px); }
+      .nav-bar { display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
+      .brand { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
+      .nav-links { display: flex; gap: 32px; align-items: center; }
+      .nav-links a, .footer-links a { color: var(--muted-foreground); font-size: 0.95rem; transition: color 0.2s ease; }
+      .nav-links a:hover, .footer-links a:hover { color: var(--foreground); }
+      .actions { display: flex; gap: 10px; align-items: center; }
+      .icon-btn, .primary-btn, .secondary-btn { border: 1px solid var(--border); background: transparent; color: var(--foreground); cursor: pointer; transition: all 0.2s ease; font: inherit; }
+      .icon-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 0 12px; border-radius: 10px; background: color-mix(in srgb, var(--card) 94%, transparent); }
+      .icon-btn:hover, .secondary-btn:hover { background: var(--secondary); }
+      .menu-toggle { display: none; }
+      .mobile-menu { display: none; border-top: 1px solid var(--border); background: color-mix(in srgb, var(--background) 94%, transparent); }
+      .mobile-menu.open { display: block; }
+      .mobile-menu nav { display: flex; flex-direction: column; gap: 16px; padding: 16px 0 18px; }
+      .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+      .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, color-mix(in srgb, var(--secondary) 88%, transparent), color-mix(in srgb, var(--background) 96%, white), var(--background)); }
+      .hero::after { content: ""; position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+      .hero-content { position: relative; z-index: 1; text-align: center; padding-top: 80px; }
+      .eyebrow { margin: 0 0 12px; color: var(--primary); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; }
+      .hero h1, h2 { margin: 0; letter-spacing: -0.04em; }
+      .hero h1 { font-size: clamp(2.6rem, 6vw, 4.8rem); font-weight: 800; }
+      .hero-subtitle { margin: 18px 0 0; color: var(--muted-foreground); font-size: clamp(1.05rem, 2vw, 1.35rem); font-weight: 600; }
+      .hero-description, .section-description { margin: 22px auto 0; max-width: 760px; color: var(--muted-foreground); line-height: 1.75; }
+      .hero-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 36px; }
+      .primary-btn, .secondary-btn { min-height: 42px; padding: 0 28px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; }
+      .primary-btn { background: var(--primary); border-color: var(--primary); color: var(--primary-foreground); box-shadow: var(--shadow); }
+      .primary-btn:hover { filter: brightness(1.05); }
+      .secondary-btn { background: var(--background); color: var(--foreground); }
+      .scroll-down { position: absolute; left: 50%; bottom: 32px; transform: translateX(-50%); color: var(--muted-foreground); font-size: 1.4rem; animation: bounce 1.8s infinite; }
+      @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(8px); } 60% { transform: translateX(-50%) translateY(4px); } }
+      section { padding: 96px 0; }
+      .section-soft { background: color-mix(in srgb, var(--secondary) 92%, transparent); }
+      .section-title-wrap { text-align: center; margin-bottom: 56px; }
+      h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; }
+      .card-grid-3, .formation-grid, .vol-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+      .card, .panel { background: color-mix(in srgb, var(--card) 97%, white); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+      .feature-card, .project-card, .vol-card, .form-card { padding: 24px; }
+      .feature-card:hover, .project-card:hover { border-color: color-mix(in srgb, var(--primary) 28%, var(--border)); transform: translateY(-2px); }
+      .icon-box { width: 48px; height: 48px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; background: color-mix(in srgb, var(--primary) 11%, transparent); color: var(--primary); margin-bottom: 16px; font-size: 1.35rem; }
+      .feature-card h3, .project-card h3, .experience-head h3, .form-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+      .small-text { color: var(--muted-foreground); font-size: 0.95rem; line-height: 1.7; }
+      .experience-panel { max-width: 860px; margin: 0 auto; padding: 32px; }
+      .experience-head { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
+      .logo-box { width: 64px; height: 64px; border-radius: 14px; border: 1px solid var(--border); background: white; padding: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+      .dark .logo-box { background: #ffffff; }
+      .subheading { color: var(--primary); font-weight: 600; }
+      .list-title { margin: 0 0 16px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; }
+      .check-list, .bullet-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+      .check-list li, .bullet-list li { display: flex; gap: 12px; align-items: flex-start; color: var(--muted-foreground); }
+      .check-list .mark { color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+      .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+      .tag { padding: 7px 11px; border-radius: 999px; background: var(--secondary); color: var(--muted-foreground); font-size: 0.78rem; }
+      .title-row { display: flex; gap: 12px; align-items: center; margin-bottom: 22px; }
+      .study-item { border-radius: 12px; padding: 14px; background: color-mix(in srgb, var(--secondary) 78%, white); margin-bottom: 14px; }
+      .study-item.highlight { background: color-mix(in srgb, var(--primary) 8%, var(--background)); border: 1px solid color-mix(in srgb, var(--primary) 24%, transparent); }
+      .study-item p { margin: 0; }
+      .study-item .muted { font-size: 0.82rem; color: var(--muted-foreground); margin-top: 4px; }
+      .study-item .status { display: inline-block; font-size: 0.78rem; margin-top: 6px; color: var(--muted-foreground); }
+      .study-item.highlight .status { color: var(--primary); font-weight: 700; }
+      .bullet-list { gap: 10px; }
+      .bullet-list li { font-size: 0.92rem; line-height: 1.6; }
+      .bullet-list .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--primary); margin-top: 8px; flex-shrink: 0; }
+      .vol-wrap { max-width: 860px; margin: 0 auto; }
+      .demolay-badge { position: relative; width: 144px; height: 144px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+      .demolay-badge img { width: 96px; height: 96px; object-fit: contain; }
+      .demolay-badge::after { content: ""; position: absolute; inset: 0; border-radius: 999px; background: radial-gradient(circle, transparent 50%, rgba(243, 244, 246, 0.9) 80%); pointer-events: none; }
+      .dark .demolay-badge::after { background: radial-gradient(circle, transparent 50%, rgba(15, 23, 42, 0.85) 80%); }
+      .skills-wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 22px; }
+      .skill-top { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; font-size: 0.95rem; }
+      .bar { height: 10px; border-radius: 999px; overflow: hidden; background: var(--secondary); }
+      .fill { height: 100%; border-radius: 999px; background: var(--primary); }
+      .contact-wrap { max-width: 620px; margin: 0 auto; }
+      .contact-card { padding: 32px; }
+      .contact-list { display: grid; gap: 18px; }
+      .contact-link, .contact-static { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: 14px; background: color-mix(in srgb, var(--secondary) 78%, white); transition: background 0.2s ease; }
+      .contact-link:hover { background: var(--secondary); }
+      .contact-meta { display: grid; gap: 4px; }
+      .contact-label { color: var(--muted-foreground); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; }
+      .contact-action { padding-top: 24px; margin-top: 24px; border-top: 1px solid var(--border); }
+      footer { border-top: 1px solid var(--border); padding: 28px 0; }
+      .footer-bar { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+      .footer-copy { color: var(--muted-foreground); font-size: 0.9rem; }
+      .footer-links { display: flex; gap: 24px; }
+      @media (max-width: 900px) { .card-grid-3, .formation-grid, .vol-grid { grid-template-columns: 1fr; } }
+      @media (max-width: 760px) {
+        .nav-links { display: none; }
+        .menu-toggle { display: inline-flex; }
+        .hero-actions { flex-direction: column; align-items: stretch; }
+        .experience-head, .footer-bar { flex-direction: column; align-items: flex-start; }
+        .footer-links { gap: 16px; }
+        section { padding: 84px 0; }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <header class="site-header" id="siteHeader">
+      <div class="container">
+        <div class="nav-bar">
+          <a class="brand" href="#hero">ESB</a>
+          <nav class="nav-links" aria-label="Principal">
+            <a href="#hero">Início</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#experiencia">Experiência</a>
+            <a href="#projetos">Projetos</a>
+            <a href="#formacao">Formação</a>
+            <a href="#contato">Contato</a>
+          </nav>
+          <div class="actions">
+            <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
+              <span id="themeIcon">🌙</span>
+              <span id="themeText">Escuro</span>
+            </button>
+            <button class="icon-btn menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu">☰</button>
+          </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+          <nav aria-label="Mobile">
+            <a href="#hero">Início</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#experiencia">Experiência</a>
+            <a href="#projetos">Projetos</a>
+            <a href="#formacao">Formação</a>
+            <a href="#contato">Contato</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="container hero-content">
+          <p class="eyebrow">Portfólio Profissional</p>
+          <h1>Everton Da Silva Barbosa</h1>
+          <p class="hero-subtitle">Administrativo | Financeiro | Tecnologia da Informação</p>
+          <p class="hero-description">
+            Experiência prática em ambiente militar, com foco em organização, controle de dados e suporte técnico.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#projetos">Ver Projetos</a>
+            <a class="secondary-btn" href="#contato">✉️ Contato</a>
+          </div>
+          <a class="scroll-down" href="#sobre" aria-label="Ir para sobre">↓</a>
+        </div>
+      </section>
+      <section class="section-soft" id="sobre">
+        <div class="container">
+          <div class="section-title-wrap">
+            <p class="eyebrow">Sobre Mim</p>
+            <h2>Quem sou eu</h2>
+            <p class="section-description">
+              Profissional com experiência no Exército Brasileiro, atuando nas áreas de informática, administração e almoxarifado. Possuo forte disciplina, organização e capacidade de adaptação, com foco em controle de dados, suporte técnico e rotinas administrativas. Atualmente em formação na área financeira, buscando crescimento profissional e estabilidade.
+            </p>
+          </div>
+          <div class="card-grid-3">
+            <article class="card feature-card">
+              <div class="icon-box">🛡️</div>
+              <h3>Disciplina</h3>
+              <p class="small-text">Formação militar com foco em responsabilidade</p>
+            </article>
+            <article class="card feature-card">
+              <div class="icon-box">🎯</div>
+              <h3>Organização</h3>
+              <p class="small-text">Controle rigoroso de processos e dados</p>
+            </article>
+            <article class="card feature-card">
+              <div class="icon-box">💡</div>
+              <h3>Adaptação</h3>
+              <p class="small-text">Aprendizado rápido e versatilidade</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="experiencia">
+        <div class="container">
+          <div class="section-title-wrap">
+            <p class="eyebrow">Trajetória</p>
+            <h2>Experiência Profissional</h2>
+          </div>
+          <div class="panel experience-panel">
+            <div class="experience-head">
+              <div class="logo-box">
+                <img src="https://media.base44.com/images/public/69b9bef659ad1ac6a28ced70/b5eff8645_1cgcfex.png" alt="1ª CGCFEx" />
+              </div>
+              <div>
+                <h3>Exército Brasileiro - 1ª CGCFEx</h3>
+                <div class="subheading">Militar Temporário</div>
+                <p class="small-text" style="margin: 6px 0 0">Informática, Administração e Almoxarifado</p>
+              </div>
+            </div>
+            <p class="list-title">Principais Atividades</p>
+            <ul class="check-list">
+              <li><span class="mark">✔</span><span>Controle de entrada e saída de equipamentos e materiais</span></li>
+              <li><span class="mark">✔</span><span>Cadastro de crachás e controle de acessos</span></li>
+              <li><span class="mark">✔</span><span>Montagem e manutenção de computadores</span></li>
+              <li><span class="mark">✔</span><span>Suporte a servidores e impressoras</span></li>
+              <li><span class="mark">✔</span><span>Elaboração de relatórios administrativos para assinatura</span></li>
+              <li><span class="mark">✔</span><span>Controle de estoque, inventário e conferência físico x sistema</span></li>
+              <li><span class="mark">✔</span><span>Atualização de planilhas e organização de dados</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-soft" id="projetos">
+        <div class="container">
+          <div class="section-title-wrap">
+            <p class="eyebrow">Portfólio</p>
+            <h2>Projetos</h2>
+          </div>
+          <div class="card-grid-3">
+            <article class="card project-card">
+              <div class="icon-box">📊</div>
+              <h3>Controle de Estoque em Excel</h3>
+              <p class="small-text">Sistema simples para controle de entrada, saída e inventário com organização de dados e redução de erros.</p>
+              <div class="tag-row">
+                <span class="tag">Excel</span>
+                <span class="tag">Organização</span>
+                <span class="tag">Controle</span>
+              </div>
+              <a href="excel.html" class="primary-btn" style="margin-top: 24px; width: 100%; font-size: 0.85rem; min-height: 38px; border-radius: 8px;">📊 Ver Dashboard</a>
+            </article>
+            <article class="card project-card">
+              <div class="icon-box">📈</div>
+              <h3>Dashboard Power BI</h3>
+              <p class="small-text">Visualização de dados financeiros e operacionais com gráficos simples e análise básica de indicadores.</p>
+              <div class="tag-row">
+                <span class="tag">Power BI</span>
+                <span class="tag">Dados</span>
+                <span class="tag">Análise</span>
+              </div>
+              <a href="powerbi.html" class="primary-btn" style="margin-top: 24px; width: 100%; font-size: 0.85rem; min-height: 38px; border-radius: 8px;">📈 Ver Dashboard</a>
+            </article>
+            <article class="card project-card">
+              <div class="icon-box">🖥️</div>
+              <h3>Manutenção de Computadores</h3>
+              <p class="small-text">Montagem, diagnóstico e manutenção de hardware com otimização de desempenho e solução de problemas.</p>
+              <div class="tag-row">
+                <span class="tag">Hardware</span>
+                <span class="tag">Suporte</span>
+                <span class="tag">TI</span>
+              </div>
+            </article>
+            <article class="card project-card">
+              <div class="icon-box">🌐</div>
+              <h3>Atlas Nexium Core</h3>
+              <p class="small-text">Site corporativo oficial da minha empresa SaaS Development, focando em presença digital elegante e conversão.</p>
+              <div class="tag-row">
+                <span class="tag">Web Design</span>
+                <span class="tag">Marca</span>
+                <span class="tag">SaaS</span>
+              </div>
+              <a href="https://atlas-nexium-core-anc-ve4r.vercel.app" target="_blank" class="primary-btn" style="margin-top: 24px; width: 100%; font-size: 0.85rem; min-height: 38px; border-radius: 8px;">🚀 Visitar Site</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="formacao">
+        <div class="container">
+          <div class="section-title-wrap">
+            <p class="eyebrow">Qualificações</p>
+            <h2>Formação &amp; Cursos</h2>
+          </div>
+          <div class="formation-grid">
+            <article class="card form-card">
+              <div class="title-row">
+                <div class="icon-box" style="margin-bottom: 0">🎓</div>
+                <h3>Formação Acadêmica</h3>
+              </div>
+              <div class="study-item highlight">
+                <p><strong>Tecnólogo em Gestão Financeira</strong></p>
+                <p class="muted">Uninter</p>
+                <span class="status">Cursando</span>
+              </div>
+              <div class="study-item">
+                <p><strong>Ensino Médio</strong></p>
+                <p class="muted">Colégio Elite</p>
+                <span class="status">Concluído em 2024</span>
+              </div>
+              <div class="study-item">
+                <p><strong>Técnico em Administração</strong></p>
+                <p class="muted">1 ano cursado</p>
+                <span class="status">Não concluído</span>
+              </div>
+            </article>
+            <article class="card form-card">
+              <div class="title-row">
+                <div class="logo-box" style="width: 40px; height: 40px; border-radius: 10px;">
+                  <img src="https://media.base44.com/images/public/69b9bef659ad1ac6a28ced70/c8774ca30_Coat_of_arms_of_the_Brazilian_Armysvg.png" alt="Exército Brasileiro" />
+                </div>
+                <h3>Cursos Militares</h3>
+              </div>
+              <ul class="bullet-list">
+                <li><span class="dot"></span><span>Estágio de Educação Financeira - SEF/IEFEx</span></li>
+                <li><span class="dot"></span><span>SPED 3.0 (Usuário/Administrador) - CITEx/CTA</span></li>
+                <li><span class="dot"></span><span>Administração de Pessoal (Direitos Remuneratórios e Pagamento)</span></li>
+                <li><span class="dot"></span><span>Curso de Formação de Soldados - 11º GAC</span></li>
+                <li><span class="dot"></span><span>Nivelamento Operacional T55/25 - Tactical Drill</span></li>
+              </ul>
+            </article>
+            <article class="card form-card">
+              <div class="title-row">
+                <div class="icon-box" style="margin-bottom: 0">📚</div>
+                <h3>Cursos Complementares</h3>
+              </div>
+              <div class="tag-row">
+                <span class="tag">Power BI</span>
+                <span class="tag">Informática (Excel, Word, PowerPoint)</span>
+                <span class="tag">Gestão Empresarial</span>
+                <span class="tag">Administração e Finanças Pessoais</span>
+                <span class="tag">Design Thinking</span>
+                <span class="tag">Inteligência Artificial</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section-soft">
+        <div class="container">
+          <div class="vol-wrap">
+            <div class="section-title-wrap">
+              <p class="eyebrow">Voluntariado</p>
+              <h2>Atividades Filantrópicas</h2>
+              <div class="demolay-badge">
+                <img src="https://media.base44.com/images/public/69b9bef659ad1ac6a28ced70/e91d42f9e_Brasaoatual.jpg" alt="Ordem DeMolay" />
+              </div>
+              <p class="section-description" style="margin-top: 0; font-weight: 600;">Membro da Ordem DeMolay</p>
+            </div>
+            <div class="vol-grid">
+              <article class="card vol-card">
+                <div class="icon-box" style="margin: 0 auto 14px;">🎁</div>
+                <p class="small-text" style="text-align: center; margin: 0;">Participação em campanhas de doação de alimentos, sangue e livros</p>
+              </article>
+              <article class="card vol-card">
+                <div class="icon-box" style="margin: 0 auto 14px;">👥</div>
+                <p class="small-text" style="text-align: center; margin: 0;">Organização de ações sociais e eventos beneficentes</p>
+              </article>
+              <article class="card vol-card">
+                <div class="icon-box" style="margin: 0 auto 14px;">❤</div>
+                <p class="small-text" style="text-align: center; margin: 0;">Desenvolvimento de liderança e trabalho em equipe</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-title-wrap">
+            <p class="eyebrow">Competências</p>
+            <h2>Habilidades</h2>
+          </div>
+          <div class="skills-wrap">
+            <div><div class="skill-top"><span>Pacote Office</span><span style="color: var(--muted-foreground);">90%</span></div><div class="bar"><div class="fill" style="width: 90%;"></div></div></div>
+            <div><div class="skill-top"><span>Organização e controle de dados</span><span style="color: var(--muted-foreground);">95%</span></div><div class="bar"><div class="fill" style="width: 95%;"></div></div></div>
+            <div><div class="skill-top"><span>Suporte técnico</span><span style="color: var(--muted-foreground);">85%</span></div><div class="bar"><div class="fill" style="width: 85%;"></div></div></div>
+            <div><div class="skill-top"><span>Trabalho em equipe</span><span style="color: var(--muted-foreground);">90%</span></div><div class="bar"><div class="fill" style="width: 90%;"></div></div></div>
+            <div><div class="skill-top"><span>Disciplina e responsabilidade</span><span style="color: var(--muted-foreground);">95%</span></div><div class="bar"><div class="fill" style="width: 95%;"></div></div></div>
+            <div><div class="skill-top"><span>Facilidade de aprendizado</span><span style="color: var(--muted-foreground);">90%</span></div><div class="bar"><div class="fill" style="width: 90%;"></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-soft" id="contato">
+        <div class="container">
+          <div class="section-title-wrap">
+            <p class="eyebrow">Vamos Conversar</p>
+            <h2>Entre em Contato</h2>
+            <p class="section-description" style="max-width: 560px;">Estou disponível para novas oportunidades profissionais. Entre em contato para conversarmos.</p>
+          </div>
+          <div class="contact-wrap">
+            <div class="card contact-card">
+              <div class="contact-list">
+                <a class="contact-link" href="mailto:evertonspqr@gmail.com">
+                  <div class="icon-box" style="margin: 0;">✉️</div>
+                  <div class="contact-meta">
+                    <span class="contact-label">Email</span>
+                    <strong>evertonspqr@gmail.com</strong>
+                  </div>
+                </a>
+                <a class="contact-link" href="tel:+5521977048314">
+                  <div class="icon-box" style="margin: 0;">📞</div>
+                  <div class="contact-meta">
+                    <span class="contact-label">Telefone</span>
+                    <strong>(21) 97704-8314</strong>
+                  </div>
+                </a>
+                <div class="contact-static">
+                  <div class="icon-box" style="margin: 0;">📍</div>
+                  <div class="contact-meta">
+                    <span class="contact-label">Localização</span>
+                    <strong>Rio de Janeiro, RJ</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="contact-action">
+                <a class="primary-btn" href="mailto:evertonspqr@gmail.com" style="width: 100%;">Enviar Email</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-bar">
+        <p class="footer-copy">© 2026 Everton Da Silva Barbosa. Todos os direitos reservados.</p>
+        <div class="footer-links">
+          <a href="mailto:evertonspqr@gmail.com">Email</a>
+          <a href="tel:+5521977048314">Telefone</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const root = document.documentElement;
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const siteHeader = document.getElementById('siteHeader');
+
+      function applyTheme(theme) {
+        const isDark = theme === 'dark';
+        root.classList.toggle('dark', isDark);
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
+        themeText.textContent = isDark ? 'Claro' : 'Escuro';
+        localStorage.setItem('portfolio-theme', theme);
+      }
+
+      const savedTheme = localStorage.getItem('portfolio-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+      themeToggle.addEventListener('click', () => {
+        applyTheme(root.classList.contains('dark') ? 'light' : 'dark');
+      });
+
+      menuToggle.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        menuToggle.textContent = open ? '✕' : '☰';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          menuToggle.textContent = '☰';
+        });
+      });
+
+      function updateHeader() {
+        siteHeader.classList.toggle('scrolled', window.scrollY > 12);
+      }
+
+      window.addEventListener('scroll', updateHeader);
+      updateHeader();
+    </script>
   </body>
 </html>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pt-BR" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Power BI - Portfólio</title>
+    <style>
+      :root {
+        --pbi-yellow: #f2c811;
+        --bg: #0d0d0d;
+        --panel: #161616;
+        --panel-border: #222;
+        --text: #eaeaea;
+        --text-muted: #888;
+        --accent: #262626;
+      }
+      * { box-sizing: border-box; font-family: 'Segoe UI', Inter, sans-serif; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .sidebar {
+        width: 60px;
+        background: var(--panel);
+        border-right: 1px solid var(--panel-border);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        z-index: 100;
+      }
+      .sidebar-pbi {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, var(--pbi-yellow), #d9a800);
+        border-radius: 4px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #000;
+        font-size: 14px;
+      }
+      .side-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        text-decoration: none;
+        margin-bottom: 8px;
+        transition: 0.2s;
+        font-size: 18px;
+      }
+      .side-btn:hover { background: var(--accent); color: var(--text); }
+      .side-btn.active { border-left: 3px solid var(--pbi-yellow); border-radius: 0 8px 8px 0; color: var(--pbi-yellow); background: rgba(242,200,17,0.1); width: 100%; border-right: none; }
+      
+      .main { flex: 1; display: flex; flex-direction: column; }
+      
+      .header {
+        height: 56px;
+        background: var(--panel);
+        border-bottom: 1px solid var(--panel-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+      }
+      .header-title { font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+      .back-btn { background: #333; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.8rem; }
+      .back-btn:hover { background: #444; }
+      
+      .content {
+        flex: 1;
+        padding: 24px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .filters {
+        display: flex;
+        gap: 16px;
+        background: var(--panel);
+        padding: 12px 20px;
+        border-radius: 8px;
+        border: 1px solid var(--panel-border);
+      }
+      .filter-group { display: flex; flex-direction: column; gap: 4px; }
+      .filter-group label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+      .filter-group select { 
+        background: var(--bg); color: var(--text); border: 1px solid var(--accent);
+        padding: 6px 12px; border-radius: 4px; outline: none; font-size: 0.85rem;
+      }
+
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .kpi-card {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        padding: 20px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        position: relative;
+        overflow: hidden;
+      }
+      .kpi-card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--pbi-yellow); opacity: 0; transition: 0.3s; }
+      .kpi-card:hover::before { opacity: 1; }
+      
+      .kpi-title { font-size: 0.85rem; color: var(--text-muted); }
+      .kpi-value { font-size: 2rem; font-weight: bold; color: var(--text); }
+      .kpi-diff { font-size: 0.8rem; color: #10B981; display: flex; align-items: center; gap: 4px; }
+      .kpi-diff.neg { color: #EF4444; }
+
+      .charts {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        flex: 1;
+      }
+      .chart-card {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .chart-header { font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+      .chart-area { flex: 1; min-height: 250px; position: relative; }
+
+      .bottom-charts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #444; }
+
+      @media (max-width: 1024px) {
+        .kpis { grid-template-columns: repeat(2, 1fr); }
+        .charts { grid-template-columns: 1fr; }
+        .bottom-charts { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-pbi">PBI</div>
+      <a href="#" class="side-btn active">📊</a>
+      <a href="#" class="side-btn">📁</a>
+      <a href="#" class="side-btn">⚙️</a>
+    </div>
+    
+    <div class="main">
+      <div class="header">
+        <div class="header-title">
+          <a href="index.html#projetos" class="back-btn">← Portfólio</a>
+          Análise Financeira & Operacional
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Atualizado: Hoje às 14:00</div>
+      </div>
+      
+      <div class="content">
+        <div class="filters">
+          <div class="filter-group">
+            <label>Ano</label>
+            <select><option>2026</option><option>2025</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Região</label>
+            <select><option>Todas as Regiões</option><option>Sudeste</option><option>Sul</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Categoria</label>
+            <select><option>Geral</option><option>Serviços</option><option>Produtos</option></select>
+          </div>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi-card">
+            <div class="kpi-title">Faturamento Total</div>
+            <div class="kpi-value">R$ 1.2M</div>
+            <div class="kpi-diff">↑ +14.5% vs mês anterior</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Lucro Líquido</div>
+            <div class="kpi-value">R$ 380K</div>
+            <div class="kpi-diff">↑ +8.2% vs mês anterior</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Despesas Operacionais</div>
+            <div class="kpi-value">R$ 420K</div>
+            <div class="kpi-diff neg">↓ -2.1% vs mês anterior</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Margem EBITDA</div>
+            <div class="kpi-value">31.6%</div>
+            <div class="kpi-diff">↑ +1.1% vs mês anterior</div>
+          </div>
+        </div>
+
+        <div class="charts">
+          <div class="chart-card">
+            <div class="chart-header">Evolução de Receitas vs Despesas (Mensal)</div>
+            <div class="chart-area" id="chart-area"></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">Distribuição por Segmento</div>
+            <div class="chart-area" id="chart-donut"></div>
+          </div>
+        </div>
+
+        <div class="bottom-charts">
+         <div class="chart-card">
+            <div class="chart-header">Desempenho por Região</div>
+            <div class="chart-area" id="chart-bar"></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">Metas Atingidas x Previsto</div>
+            <div class="chart-area" id="chart-radar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ApexCharts CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+      // Common ApexCharts Options for dark theme
+      const commonOptions = {
+        chart: { background: 'transparent', toolbar: { show: false }, zoom: { enabled: false } },
+        theme: { mode: 'dark' },
+        grid: { borderColor: '#333' }
+      };
+
+      // Receitas vs Despesas - Area Chart
+      new ApexCharts(document.getElementById('chart-area'), {
+        ...commonOptions,
+        series: [{ name: 'Receita', data: [80, 95, 110, 105, 120, 140, 135, 160] }, { name: 'Despesas', data: [60, 65, 75, 70, 80, 85, 90, 95] }],
+        chart: { type: 'area', height: '100%' },
+        colors: ['#f2c811', '#555555'],
+        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, stops: [0, 90, 100] } },
+        dataLabels: { enabled: false },
+        stroke: { curve: 'smooth', width: 2 },
+        xaxis: { categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'], axisBorder: { show: false }, axisTicks: { show: false } },
+        yaxis: { labels: { formatter: (val) => "R$ " + val + "k" } },
+        legend: { position: 'top', horizontalAlign: 'right' }
+      }).render();
+
+      // Distribuição - Donut
+      new ApexCharts(document.getElementById('chart-donut'), {
+        ...commonOptions,
+        series: [44, 25, 15, 16],
+        labels: ['Serviços TI', 'Consultoria', 'Produtos', 'Outros'],
+        chart: { type: 'donut', height: '100%' },
+        colors: ['#f2c811', '#c7a30e', '#777777', '#444444'],
+        dataLabels: { enabled: false },
+        plotOptions: { pie: { donut: { size: '70%', labels: { show: true, name: { show: false }, value: { show: true, color: '#fff', fontSize: '24px' }, total: { show: true, showAlways: true, label: 'Total', fontSize: '14px', color: '#888' } } } } },
+        stroke: { show: false },
+        legend: { position: 'bottom' }
+      }).render();
+
+      // Desempenho Regional - Bar
+      new ApexCharts(document.getElementById('chart-bar'), {
+        ...commonOptions,
+        series: [{ name: 'Realizado', data: [400, 300, 200, 150] }],
+        chart: { type: 'bar', height: '100%' },
+        colors: ['#f2c811'],
+        plotOptions: { bar: { borderRadius: 4, horizontal: true, barHeight: '50%' } },
+        dataLabels: { enabled: true, formatter: (val) => "R$ " + val + "k", style: { colors: ['#000'] } },
+        xaxis: { categories: ['Sudeste', 'Sul', 'Nordeste', 'Centro-Oeste'] },
+        yaxis: { labels: { style: { colors: '#eaeaea' } } }
+      }).render();
+
+      // Metas - Line
+      new ApexCharts(document.getElementById('chart-radar'), {
+        ...commonOptions,
+        series: [{ name: 'Realizado', data: [80, 90, 70, 110, 85, 100] }, { name: 'Meta', data: [85, 85, 85, 85, 85, 85] }],
+        chart: { type: 'line', height: '100%' },
+        colors: ['#f2c811', '#ff4560'],
+        stroke: { width: [3, 2], dashArray: [0, 5] },
+        xaxis: { categories: ['Q1', 'Q2', 'Q3', 'Q4', 'Q1 (Est)', 'Q2 (Est)'] },
+        legend: { position: 'top', horizontalAlign: 'left' }
+      }).render();
+    </script>
+  </body>
+</html>
