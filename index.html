@@ -15,30 +15,34 @@
     />
     <style>
       :root {
-        --background: hsl(38 35% 97%);
-        --foreground: hsl(220 22% 16%);
-        --card: hsl(36 38% 99%);
-        --card-foreground: hsl(220 22% 16%);
-        --primary: hsl(215 50% 23%);
-        --primary-foreground: hsl(0 0% 100%);
-        --secondary: hsl(34 34% 92%);
-        --muted-foreground: hsl(220 9% 36%);
-        --border: hsl(30 20% 84%);
-        --shadow: 0 14px 34px rgba(74, 58, 35, 0.08);
+        --background: #F9F9F9;
+        --foreground: #111111;
+        --card: #FFFFFF;
+        --card-foreground: #111111;
+        --primary: #007A82; /* Teal mais escuro para contraste */
+        --primary-hover: #005F66;
+        --primary-foreground: #FFFFFF;
+        --accent: #CC4400; /* Laranja escuro para contraste */
+        --secondary: #EBEBEB;
+        --muted-foreground: #555555;
+        --border: #DDDDDD;
+        --shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
         --radius: 16px;
       }
 
       html.dark {
-        --background: hsl(220 20% 7%);
+        --background: hsl(210 35% 10%); /* Fundo escuro azulado/Teal */
         --foreground: hsl(0 0% 98%);
-        --card: hsl(220 20% 10%);
+        --card: hsl(210 30% 12%);
         --card-foreground: hsl(0 0% 98%);
-        --primary: hsl(210 100% 60%);
-        --primary-foreground: hsl(220 20% 7%);
-        --secondary: hsl(220 15% 15%);
-        --muted-foreground: hsl(220 10% 70%);
-        --border: hsl(220 15% 20%);
-        --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        --primary: hsl(183 100% 33%); /* Teal/Cyan base */
+        --primary-hover: hsl(183 100% 25%);
+        --primary-foreground: hsl(0 0% 100%);
+        --accent: hsl(19 85% 55%); /* Laranja Complementar */
+        --secondary: hsl(210 30% 18%);
+        --muted-foreground: hsl(183 20% 60%);
+        --border: hsl(210 30% 22%);
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
       }
 
       * { box-sizing: border-box; }
@@ -72,7 +76,7 @@
       .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, color-mix(in srgb, var(--secondary) 88%, transparent), color-mix(in srgb, var(--background) 96%, white), var(--background)); }
       .hero::after { content: ""; position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
       .hero-content { position: relative; z-index: 1; text-align: center; padding-top: 80px; }
-      .eyebrow { margin: 0 0 12px; color: var(--primary); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; }
+      .eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; }
       .hero h1, h2 { margin: 0; letter-spacing: -0.04em; }
       .hero h1 { font-size: clamp(2.6rem, 6vw, 4.8rem); font-weight: 800; }
       .hero-subtitle { margin: 18px 0 0; color: var(--muted-foreground); font-size: clamp(1.05rem, 2vw, 1.35rem); font-weight: 600; }
@@ -82,8 +86,8 @@
       .primary-btn { background: var(--primary); border-color: var(--primary); color: var(--primary-foreground); box-shadow: var(--shadow); }
       .primary-btn:hover { filter: brightness(1.05); }
       .secondary-btn { background: var(--background); color: var(--foreground); }
-      .scroll-down { position: absolute; left: 50%; bottom: 32px; transform: translateX(-50%); color: var(--muted-foreground); font-size: 1.4rem; animation: bounce 1.8s infinite; }
-      @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(8px); } 60% { transform: translateX(-50%) translateY(4px); } }
+      .scroll-down { position: fixed; right: 32px; bottom: 32px; z-index: 50; color: var(--primary); animation: bounce 1.8s infinite; transition: opacity 0.3s ease; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); display: flex; align-items: center; justify-content: center; }
+      @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(12px); } }
       section { padding: 96px 0; }
       .section-soft { background: color-mix(in srgb, var(--secondary) 92%, transparent); }
       .section-title-wrap { text-align: center; margin-bottom: 56px; }
@@ -105,7 +109,7 @@
       .check-list li, .bullet-list li { display: flex; gap: 12px; align-items: flex-start; color: var(--muted-foreground); }
       .check-list .mark { color: var(--primary); flex-shrink: 0; margin-top: 2px; }
       .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-      .tag { padding: 7px 11px; border-radius: 999px; background: var(--secondary); color: var(--muted-foreground); font-size: 0.78rem; }
+      .tag { padding: 7px 11px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent); font-size: 0.78rem; font-weight: 600; text-shadow: 0 0 12px color-mix(in srgb, var(--primary) 40%, transparent); }
       .title-row { display: flex; gap: 12px; align-items: center; margin-bottom: 22px; }
       .study-item { border-radius: 12px; padding: 14px; background: color-mix(in srgb, var(--secondary) 78%, white); margin-bottom: 14px; }
       .study-item.highlight { background: color-mix(in srgb, var(--primary) 8%, var(--background)); border: 1px solid color-mix(in srgb, var(--primary) 24%, transparent); }
@@ -118,9 +122,7 @@
       .bullet-list .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--primary); margin-top: 8px; flex-shrink: 0; }
       .vol-wrap { max-width: 860px; margin: 0 auto; }
       .demolay-badge { position: relative; width: 144px; height: 144px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
-      .demolay-badge img { width: 96px; height: 96px; object-fit: contain; }
-      .demolay-badge::after { content: ""; position: absolute; inset: 0; border-radius: 999px; background: radial-gradient(circle, transparent 50%, rgba(243, 244, 246, 0.9) 80%); pointer-events: none; }
-      .dark .demolay-badge::after { background: radial-gradient(circle, transparent 50%, rgba(15, 23, 42, 0.85) 80%); }
+      .demolay-badge img { width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
       .skills-wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 22px; }
       .skill-top { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; font-size: 0.95rem; }
       .bar { height: 10px; border-radius: 999px; overflow: hidden; background: var(--secondary); }
@@ -149,6 +151,7 @@
     </style>
   </head>
   <body>
+    <canvas id="bg-3d" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; pointer-events:none;"></canvas>
     <header class="site-header" id="siteHeader">
       <div class="container">
         <div class="nav-bar">
@@ -195,7 +198,12 @@
             <a class="primary-btn" href="#projetos">Ver Projetos</a>
             <a class="secondary-btn" href="#contato">✉️ Contato</a>
           </div>
-          <a class="scroll-down" href="#sobre" aria-label="Ir para sobre">↓</a>
+          <a class="scroll-down" href="#sobre" aria-label="Ir para sobre">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </a>
         </div>
       </section>
       <section class="section-soft" id="sobre">
@@ -379,7 +387,7 @@
               <p class="eyebrow">Voluntariado</p>
               <h2>Atividades Filantrópicas</h2>
               <div class="demolay-badge">
-                <img src="https://media.base44.com/images/public/69b9bef659ad1ac6a28ced70/e91d42f9e_Brasaoatual.jpg" alt="Ordem DeMolay" />
+                <img src="demolay.png" alt="Ordem DeMolay" />
               </div>
               <p class="section-description" style="margin-top: 0; font-weight: 600;">Membro da Ordem DeMolay</p>
             </div>
@@ -435,11 +443,29 @@
                     <strong>evertonspqr@gmail.com</strong>
                   </div>
                 </a>
-                <a class="contact-link" href="tel:+5521977048314">
-                  <div class="icon-box" style="margin: 0;">📞</div>
+                <a class="contact-link" href="https://web.whatsapp.com/send/?phone=5521977048314&text&type=phone_number&app_absent=0" target="_blank">
+                  <div class="icon-box" style="margin: 0;">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                  </div>
                   <div class="contact-meta">
-                    <span class="contact-label">Telefone</span>
+                    <span class="contact-label">WhatsApp</span>
                     <strong>(21) 97704-8314</strong>
+                  </div>
+                </a>
+                <a class="contact-link" href="https://www.linkedin.com/in/everton-silva-597891286/" target="_blank">
+                  <div class="icon-box" style="margin: 0;">💼</div>
+                  <div class="contact-meta">
+                    <span class="contact-label">LinkedIn</span>
+                    <strong>Everton Silva</strong>
+                  </div>
+                </a>
+                <a class="contact-link" href="https://github.com/evertonspqr-ux" target="_blank">
+                  <div class="icon-box" style="margin: 0;">🐙</div>
+                  <div class="contact-meta">
+                    <span class="contact-label">GitHub</span>
+                    <strong>evertonspqr-ux</strong>
                   </div>
                 </a>
                 <div class="contact-static">
@@ -464,7 +490,9 @@
         <p class="footer-copy">© 2026 Everton Da Silva Barbosa. Todos os direitos reservados.</p>
         <div class="footer-links">
           <a href="mailto:evertonspqr@gmail.com">Email</a>
-          <a href="tel:+5521977048314">Telefone</a>
+          <a href="https://web.whatsapp.com/send/?phone=5521977048314&text&type=phone_number&app_absent=0" target="_blank">WhatsApp</a>
+          <a href="https://www.linkedin.com/in/everton-silva-597891286/" target="_blank">LinkedIn</a>
+          <a href="https://github.com/evertonspqr-ux" target="_blank">GitHub</a>
         </div>
       </div>
     </footer>
@@ -508,10 +536,134 @@
 
       function updateHeader() {
         siteHeader.classList.toggle('scrolled', window.scrollY > 12);
+        
+        const scrollBtn = document.querySelector('.scroll-down');
+        if (scrollBtn) {
+          const op = Math.max(0, 1 - (window.scrollY / 300));
+          scrollBtn.style.opacity = op;
+          scrollBtn.style.pointerEvents = op < 0.1 ? 'none' : 'auto';
+        }
       }
 
       window.addEventListener('scroll', updateHeader);
       updateHeader();
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      const canvas = document.getElementById('bg-3d');
+      const scene = new THREE.Scene();
+      
+      // Fog goes well with the cinematic theme
+      scene.fog = new THREE.FogExp2(0x0f171e, 0.05);
+
+      const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas: canvas });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      
+      const objects = [];
+      const isDark = document.documentElement.classList.contains('dark');
+      
+      // Neon Teal and Orange materials
+      const materialTeal = new THREE.MeshPhongMaterial({ 
+        color: 0x00A1AB, 
+        emissive: 0x00A1AB,
+        emissiveIntensity: 0.2,
+        shininess: 100, 
+        flatShading: true 
+      });
+      const materialOrange = new THREE.MeshPhongMaterial({ 
+        color: 0xE05411, 
+        emissive: 0xE05411,
+        emissiveIntensity: 0.2,
+        shininess: 100, 
+        flatShading: true 
+      });
+      
+      // Icosahedrons background (low-poly vibe)
+      for(let i=0; i<18; i++) {
+        const radius = Math.random() * 1 + 0.3;
+        const geo = new THREE.IcosahedronGeometry(radius);
+        const mat = Math.random() > 0.3 ? materialTeal : materialOrange;
+        const mesh = new THREE.Mesh(geo, mat);
+        
+        // Spread evenly in view
+        mesh.position.set(
+          (Math.random() - 0.5) * 40, 
+          (Math.random() - 0.5) * 40, 
+          (Math.random() - 0.5) * 20 - 15
+        );
+        mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+        
+        mesh.userData = {
+          rx: (Math.random() - 0.5) * 0.015,
+          ry: (Math.random() - 0.5) * 0.015,
+          yOffset: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.001 + 0.0005
+        };
+        
+        scene.add(mesh);
+        objects.push(mesh);
+      }
+      
+      // Cool lighting
+      const light1 = new THREE.DirectionalLight(0x00A1AB, 1.5);
+      light1.position.set(-10, 10, 5);
+      scene.add(light1);
+
+      const light2 = new THREE.DirectionalLight(0xE05411, 1.2);
+      light2.position.set(10, -10, 5);
+      scene.add(light2);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+      scene.add(ambientLight);
+      
+      camera.position.z = 5;
+      
+      let mouseX = 0;
+      let mouseY = 0;
+      let targetX = 0;
+      let targetY = 0;
+      
+      document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2);
+        mouseY = (e.clientY - window.innerHeight / 2);
+      });
+
+      function animate(time) {
+        requestAnimationFrame(animate);
+        targetX = mouseX * 0.001;
+        targetY = mouseY * 0.001;
+        
+        // Camera smooth parallax
+        camera.position.x += (targetX - camera.position.x) * 0.05;
+        camera.position.y += (-targetY - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
+        objects.forEach(obj => {
+          obj.rotation.x += obj.userData.rx;
+          obj.rotation.y += obj.userData.ry;
+          obj.position.y += Math.sin(time * obj.userData.speed + obj.userData.yOffset) * 0.005;
+        });
+        renderer.render(scene, camera);
+      }
+      animate(0);
+      
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Force dark mode to match the cinematic vibe permanently if preferred, 
+      // but here we just ensure 3D updates if theme toggles.
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        setTimeout(() => {
+          const isNowDark = document.documentElement.classList.contains('dark');
+          scene.fog.color.setHex(isNowDark ? 0x0f171e : 0xffffff);
+        }, 10);
+      });
     </script>
   </body>
 </html>
