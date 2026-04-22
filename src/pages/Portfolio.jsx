@@ -1,6 +1,5 @@
 import {
   ArrowRight,
-  Check,
   ChevronRight,
   Mail,
   Menu,
@@ -14,91 +13,91 @@ import atlasMarkLight from '@/assets/atlas-mark-light.svg';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const navItems = [
-  { label: 'Capacidades', href: '#capabilities' },
-  { label: 'Projetos', href: '#projects' },
-  { label: 'Processo', href: '#architecture' },
+  { label: 'Especialidades', href: '#capabilities' },
+  { label: 'Cases', href: '#projects' },
+  { label: 'Metodo', href: '#architecture' },
   { label: 'Contato', href: '#cta' },
 ];
 
 const tickerItems = [
-  'Sites institucionais',
-  'Sistemas sob medida',
-  'Automacao de processos',
-  'Interfaces claras',
-  'Marca aplicada com consistencia',
-  'Experiencia premium',
+  'Posicionamento premium',
+  'Cases orientados a resultado',
+  'Prova social e autoridade',
+  'UX clara para negocio',
+  'Automacao com impacto real',
+  'CTA com foco em conversao',
 ];
 
 const capabilities = [
   {
     id: '01',
-    title: 'Presenca digital elegante',
-    text: 'Paginas que transmitem credibilidade sem exagerar no tom tecnico, com mais clareza para quem esta conhecendo a marca.',
-    tags: ['branding', 'site', 'copy'],
+    title: 'Posicionamento que parece empresa de verdade',
+    text: 'Hero com proposta de valor objetiva, linguagem de negocio e oferta clara para voce ser percebido como especialista, nao como freelancer improvisado.',
+    tags: ['posicionamento', 'mensagem', 'oferta'],
   },
   {
     id: '02',
-    title: 'Experiencia mais intuitiva',
-    text: 'Organizacao visual, respiro e hierarquia para guiar a leitura com naturalidade, sem cansar ou intimidar o visitante.',
-    tags: ['ux', 'layout', 'mobile'],
+    title: 'Arquitetura de confianca',
+    text: 'Narrativa completa com prova social, stacks, metodo e CTA recorrente para reduzir duvida e aumentar confianca em cada bloco da pagina.',
+    tags: ['prova social', 'credibilidade', 'estrutura'],
   },
   {
     id: '03',
-    title: 'Automacao com linguagem simples',
-    text: 'A parte tecnica continua forte, mas apresentada de um jeito que o cliente entende o valor antes de se preocupar com jargoes.',
-    tags: ['automacao', 'processos', 'valor'],
+    title: 'Cases com maturidade comercial',
+    text: 'Projetos deixam de ser so vitrine visual e passam a mostrar contexto, decisao tecnica e resultado mensuravel para o cliente.',
+    tags: ['cases', 'resultado', 'decisoes'],
   },
   {
     id: '04',
-    title: 'Identidade aplicada do jeito certo',
-    text: 'Sua logo oficial passa a ser a protagonista, com encaixe real no site e coerencia visual com o restante da comunicacao.',
-    tags: ['logo', 'consistencia', 'marca'],
+    title: 'Estetica premium com leitura humana',
+    text: 'Visual escuro e sofisticado, tipografia refinada e blocos escaneaveis para manter impacto sem sacrificar clareza.',
+    tags: ['direcao de arte', 'ux writing', 'conversao'],
   },
 ];
 
 const projects = [
   {
-    id: 'PRJ_001',
-    title: 'Landing',
-    accent: 'Premium',
+    id: 'CASE_001',
+    title: 'Site institucional de autoridade',
+    accent: 'B2B',
     description:
-      'Visual escuro, sofisticado e com mais refinamento tipografico, preservando a energia da marca sem parecer agressivo.',
-    tech: ['Atlas lockup', 'CTA claro', 'hero em grid'],
+      'Reposicionamento completo do hero, servicos e prova social para transformar primeira impressao em reuniao qualificada.',
+    tech: ['proposta de valor', 'prova social', 'cta recorrente'],
   },
   {
-    id: 'PRJ_002',
-    title: 'Fluxo',
-    accent: 'Clareza',
+    id: 'CASE_002',
+    title: 'Produto SaaS com narrativa de valor',
+    accent: 'SaaS',
     description:
-      'A estrutura ficou mais parecida com a proposta do Claude, mas com texto e ritmo visual mais acolhedores para publico nao tecnico.',
-    tech: ['ticker', 'cards', 'sticky intro'],
+      'Estrutura inspirada em produto maduro: problema, modulo, ganho esperado, integracoes e evidencias de resultado.',
+    tech: ['modulos', 'metricas', 'integracoes'],
   },
   {
-    id: 'PRJ_003',
-    title: 'Marca',
-    accent: 'Oficial',
+    id: 'CASE_003',
+    title: 'Portfolio tecnico com linguagem de negocio',
+    accent: 'Senior',
     description:
-      'O simbolo improvisado saiu de cena. Agora o site usa seus arquivos reais e reforca a assinatura da Atlas Nexium Core.',
-    tech: ['svg oficial', 'logo real', 'footer alinhado'],
+      'As skills tecnicas continuam fortes, mas passam a ser apresentadas em formato que decisores entendem em menos de 30 segundos.',
+    tech: ['stack contextualizada', 'impacto', 'clareza'],
   },
 ];
 
 const processSteps = [
   {
-    name: 'Diagnostico',
-    desc: 'Entendemos a marca, o publico e qual impressao o site precisa causar nos primeiros segundos.',
+    name: 'Posicionamento',
+    desc: 'Definimos ICP, proposta de valor e tom de autoridade para a pagina comunicar maturidade desde o primeiro bloco.',
   },
   {
-    name: 'Composicao',
-    desc: 'Misturamos o layout impactante do conceito original com tipografia mais refinada e leitura mais suave.',
+    name: 'Arquitetura',
+    desc: 'Construimos a ordem das secoes com foco em decisao: oferta, prova, metodo, cases e chamada comercial.',
   },
   {
-    name: 'Ajuste fino',
-    desc: 'Organizamos copy, contraste, blocos de informacao e chamadas para manter o site forte sem ficar hostil.',
+    name: 'Execucao',
+    desc: 'Aplicamos direcao de arte premium, copy escaneavel e componentes com hierarquia clara em desktop e mobile.',
   },
   {
-    name: 'Entrega',
-    desc: 'A pagina final conversa melhor com pessoas reais, sem perder a sofisticacao e a autoridade da sua marca.',
+    name: 'Otimizacao',
+    desc: 'Refinamos CTA, microcopy e blocos de confianca para aumentar conversao sem perder personalidade.',
   },
 ];
 
@@ -202,17 +201,17 @@ export default function Portfolio() {
             <div>
               <div className="mb-8 inline-flex items-center gap-3 font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
                 <span className="h-px w-10 bg-primary" />
-                fusao entre o conceito do claude e sua marca real
+                portfolio reposicionado com padrao de estudio senior
               </div>
 
               <h1 className="font-display text-5xl uppercase leading-[0.94] text-white sm:text-6xl lg:text-[5.2rem]">
-                Visual forte, mas com leitura mais humana.
+                Menos cara de teste, mais cara de empresa premium.
               </h1>
 
               <p className="mt-6 max-w-xl text-base leading-8 text-white/68 sm:text-lg">
-                Mantivemos a estrutura premium e o impacto visual do layout original, mas agora com
-                a logo oficial da Atlas Nexium Core, tipografia mais equilibrada e uma experiencia
-                menos agressiva para quem nao e programador.
+                Seu portfolio agora combina impacto visual, clareza comercial e narrativa de
+                confianca. A pessoa entende o que voce resolve, como entrega e por que pode
+                confiar em voce antes mesmo de chegar no fim da pagina.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -220,7 +219,7 @@ export default function Portfolio() {
                   href="#projects"
                   className="inline-flex items-center justify-center gap-2 bg-primary px-6 py-3 font-mono-ui text-[0.72rem] uppercase tracking-[0.24em] text-white transition hover:bg-primary/90"
                 >
-                  ver a fusao
+                  ver os cases
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
@@ -232,9 +231,9 @@ export default function Portfolio() {
               </div>
 
               <div className="mt-12 grid gap-4 sm:grid-cols-3">
-                <HeroMetric value="Logo oficial" label="no lugar do simbolo improvisado" />
-                <HeroMetric value="Tipografia nova" label="mais elegante e menos dura" />
-                <HeroMetric value="Layout preservado" label="com a estrutura forte do conceito" />
+                <HeroMetric value="+Autoridade" label="mensagem objetiva e posicionamento forte" />
+                <HeroMetric value="+Confianca" label="provas, metodo e linguagem de negocio" />
+                <HeroMetric value="+Conversao" label="cta estrategico em pontos criticos" />
               </div>
             </div>
 
@@ -244,11 +243,11 @@ export default function Portfolio() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="font-mono-ui text-[0.62rem] uppercase tracking-[0.32em] text-white/38">
-                        identidade aplicada
+                        estrutura de alta conversao
                       </p>
                       <p className="mt-2 max-w-sm text-sm leading-6 text-white/58">
-                        Mesmo clima premium do conceito inicial, agora com mais refinamento e
-                        aderencia a sua marca.
+                        Referencias de estudio criativo e SaaS B2B aplicadas no seu portfolio de
+                        forma direta e sem perder identidade.
                       </p>
                     </div>
                     <span className="inline-flex items-center gap-2 font-mono-ui text-[0.62rem] uppercase tracking-[0.22em] text-primary">
@@ -268,13 +267,13 @@ export default function Portfolio() {
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     <InsightCard
                       icon={ShieldCheck}
-                      title="Mais confianca"
-                      text="O visitante entende valor antes de sentir o peso tecnico."
+                      title="Confianca imediata"
+                      text="Oferta, prova e metodo aparecem cedo para reduzir friccao."
                     />
                     <InsightCard
                       icon={Workflow}
-                      title="Mais direcao"
-                      text="A pagina conduz o olhar com mais fluidez e menos atrito."
+                      title="Jornada guiada"
+                      text="Cada secao prepara a proxima ate o contato final."
                     />
                   </div>
                 </div>
@@ -301,15 +300,15 @@ export default function Portfolio() {
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[320px_1fr]">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <p className="font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
-                capacidades
+                especialidades
               </p>
               <h2 className="mt-4 font-display text-4xl uppercase leading-none text-white sm:text-5xl">
-                O mesmo formato impactante, com outra sensacao.
+                Os pilares que deixam seu portfolio mais maduro.
               </h2>
               <div className="mt-5 h-[2px] w-12 bg-primary shadow-[0_0_18px_rgba(255,0,0,0.25)]" />
               <p className="mt-6 text-base leading-8 text-white/62">
-                Aqui entra a fusao: o esqueleto visual forte do Claude continua, mas com pesos,
-                copy e ritmo que conversam melhor com publico geral.
+                O objetivo aqui e simples: manter seu DNA visual e elevar percepcao de valor com
+                estrutura, argumento e acabamento de produto serio.
               </p>
             </div>
 
@@ -349,15 +348,15 @@ export default function Portfolio() {
             <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
               <div>
                 <p className="font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
-                  projetos
+                  cases
                 </p>
                 <h2 className="mt-4 font-display text-4xl uppercase leading-none text-white sm:text-5xl">
-                  A pagina agora vende melhor a sofisticacao da marca.
+                  Exemplos de narrativa aplicada no seu portfolio.
                 </h2>
               </div>
               <p className="max-w-xl text-base leading-8 text-white/62">
-                Em vez de parecer um painel tecnico agressivo, o site passou a comunicar
-                clareza, estrutura e confianca. Ainda premium, ainda escuro, ainda marcante.
+                Cada case foi desenhado para mostrar contexto, decisao e impacto. Isso muda sua
+                percepcao de "fazedor" para "parceiro estrategico".
               </p>
             </div>
 
@@ -394,7 +393,7 @@ export default function Portfolio() {
 
                     <div className="mt-8 flex items-center gap-2 font-mono-ui text-[0.66rem] uppercase tracking-[0.2em] text-white/56">
                       <ChevronRight className="h-4 w-4 text-primary" />
-                      ajuste fino visual
+                      leitura orientada a negocio
                     </div>
                   </div>
                 </article>
@@ -411,15 +410,15 @@ export default function Portfolio() {
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
               <p className="font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
-                processo
+                metodo
               </p>
               <h2 className="mt-4 font-display text-4xl uppercase leading-none text-white sm:text-5xl">
-                Como essa fusao funciona.
+                Como transformamos visual em percepcao de valor.
               </h2>
               <div className="mt-5 h-[2px] w-12 bg-primary" />
               <p className="mt-6 max-w-xl text-base leading-8 text-white/62">
-                A estrutura do Claude serviu como base de composicao. A partir dela, refinamos a
-                marca, a leitura e o tom para chegar num resultado mais convincente.
+                O processo combina estrategia de comunicacao, direcao visual e clareza tecnica.
+                Resultado: portfolio elegante, confiante e pronto para vender projetos maiores.
               </p>
 
               <div className="mt-10 border border-white/8 bg-[#101010] p-7">
@@ -429,8 +428,8 @@ export default function Portfolio() {
                   className="h-16 w-16 object-contain"
                 />
                 <p className="mt-5 text-sm leading-7 text-white/60">
-                  O simbolo oficial volta a ocupar o centro da composicao, em vez de uma releitura
-                  aproximada feita dentro do codigo.
+                  Sua identidade continua protagonista, mas agora sustentada por uma estrutura de
+                  negocio que gera reunioes e oportunidades.
                 </p>
               </div>
             </div>
@@ -464,15 +463,15 @@ export default function Portfolio() {
           <div className="cta-radial" />
           <div className="relative z-10 mx-auto max-w-5xl">
             <p className="font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
-              pronto para ajustar o resto
+              pronto para subir o nivel do portfolio
             </p>
             <h2 className="mt-6 font-display text-5xl uppercase leading-[0.9] text-white sm:text-6xl lg:text-7xl">
-              Sua marca
-              <span className="block text-white/18">mais forte, mais clara</span>
+              Transforme visitas em
+              <span className="block text-white/18">projetos de maior valor</span>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/62 sm:text-lg">
-              O site agora junta o melhor dos dois lados: a estrutura premium e ousada do conceito
-              inicial com uma apresentacao mais refinada, real e alinhada com a Atlas Nexium Core.
+              Aplicamos tecnicas de estudios criativos e produtos SaaS: narrativa clara, prova de
+              maturidade e chamada para acao em todos os pontos decisivos.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
