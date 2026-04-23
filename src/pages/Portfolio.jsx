@@ -37,6 +37,29 @@ const proofStats = [
   { value: '+2.8x', label: 'leads qualificados em paginas otimizadas' },
 ];
 
+const servicePillars = [
+  {
+    id: '01',
+    title: 'Creative Direction',
+    text: 'Direcao visual com foco em narrativa e memorabilidade.',
+  },
+  {
+    id: '02',
+    title: 'Interaction Systems',
+    text: 'Animacoes e microinteracoes que reforcam clareza e ritmo.',
+  },
+  {
+    id: '03',
+    title: 'Product Storytelling',
+    text: 'Estrutura de pagina pensada para converter interesse em reuniao.',
+  },
+  {
+    id: '04',
+    title: 'Performance Engineering',
+    text: 'Front-end otimizado para manter fluidez mesmo com alto impacto visual.',
+  },
+];
+
 const capabilities = [
   {
     id: '01',
@@ -342,6 +365,46 @@ export default function Portfolio() {
           </div>
         </section>
 
+        <section className="border-b border-white/8 bg-[#070707] px-5 py-20 sm:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+              <div className="lg:sticky lg:top-28">
+                <p className="font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
+                  service framework
+                </p>
+                <h2 className="mt-4 font-display text-4xl uppercase leading-none text-white sm:text-5xl">
+                  O mesmo nivel dos estudios que voce enviou.
+                </h2>
+                <p className="mt-6 max-w-md text-base leading-8 text-white/62">
+                  Direcao de arte, motion e clareza de produto trabalhando juntos para criar uma
+                  experiencia premium de verdade.
+                </p>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {servicePillars.map((pillar, index) => (
+                  <article
+                    key={pillar.id}
+                    className={`animate-fade-in-up stagger-${Math.min(index, 5)} premium-card p-7`}
+                  >
+                    <p className="font-mono-ui text-[0.62rem] uppercase tracking-[0.26em] text-primary/75">
+                      {pillar.id}
+                    </p>
+                    <h3 className="mt-5 font-display text-3xl uppercase leading-none text-white">
+                      {pillar.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-7 text-white/62">{pillar.text}</p>
+                    <div className="mt-6 inline-flex items-center gap-2 font-mono-ui text-[0.62rem] uppercase tracking-[0.2em] text-white/50">
+                      <span className="h-px w-8 bg-primary/60" />
+                      premium layer
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section
           id="capabilities"
           ref={capabilitiesRef.elementRef}
@@ -511,7 +574,7 @@ export default function Portfolio() {
 
         <section id="cta" className="relative overflow-hidden px-5 py-24 text-center sm:px-8">
           <div className="cta-radial" />
-          <div className="relative z-10 mx-auto max-w-5xl">
+          <div className="cta-frame relative z-10 mx-auto max-w-5xl px-6 py-12 sm:px-10">
             <p className="font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
               pronto para sair do comum
             </p>
