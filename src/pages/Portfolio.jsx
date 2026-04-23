@@ -20,12 +20,21 @@ const navItems = [
 ];
 
 const tickerItems = [
-  'Posicionamento premium',
-  'Cases orientados a resultado',
-  'Prova social e autoridade',
-  'UX clara para negocio',
-  'Automacao com impacto real',
-  'CTA com foco em conversao',
+  'Creative development',
+  '3D interactions',
+  'Narrativa orientada a resultado',
+  'UX premium para conversao',
+  'Sistemas sob medida',
+  'Automacao e performance',
+];
+
+const trustLogos = ['Atlas Labs', 'Nexium Ops', 'Broker Flow', 'Shader Stack', 'Fine Studio'];
+
+const proofStats = [
+  { value: '+38', label: 'projetos entregues' },
+  { value: '97%', label: 'satisfacao media' },
+  { value: '-41%', label: 'tempo de operacao em fluxos manuais' },
+  { value: '+2.8x', label: 'leads qualificados em paginas otimizadas' },
 ];
 
 const capabilities = [
@@ -104,6 +113,7 @@ const processSteps = [
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [heroSpotlight, setHeroSpotlight] = useState({ x: 50, y: 50 });
 
   const capabilitiesRef = useIntersectionObserver();
   const projectsRef = useIntersectionObserver();
@@ -118,6 +128,13 @@ export default function Portfolio() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const handleHeroPointer = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    setHeroSpotlight({ x, y });
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -191,9 +208,15 @@ export default function Portfolio() {
       <main>
         <section
           id="hero"
+          onMouseMove={handleHeroPointer}
           className="relative overflow-hidden border-b border-white/8 px-5 pb-16 pt-28 sm:px-8 sm:pt-32"
+          style={{
+            '--spotlight-x': `${heroSpotlight.x}%`,
+            '--spotlight-y': `${heroSpotlight.y}%`,
+          }}
         >
           <div className="atlas-grid" />
+          <div className="hero-spotlight" />
           <div className="hero-ambient hero-ambient-left" />
           <div className="hero-ambient hero-ambient-right" />
 
@@ -201,17 +224,17 @@ export default function Portfolio() {
             <div>
               <div className="mb-8 inline-flex items-center gap-3 font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
                 <span className="h-px w-10 bg-primary" />
-                portfolio reposicionado com padrao de estudio senior
+                referencia visual de estudio + estrutura de produto
               </div>
 
               <h1 className="font-display text-5xl uppercase leading-[0.94] text-white sm:text-6xl lg:text-[5.2rem]">
-                Menos cara de teste, mais cara de empresa premium.
+                Design epico. UX inteligente. Conversao real.
               </h1>
 
               <p className="mt-6 max-w-xl text-base leading-8 text-white/68 sm:text-lg">
-                Seu portfolio agora combina impacto visual, clareza comercial e narrativa de
-                confianca. A pessoa entende o que voce resolve, como entrega e por que pode
-                confiar em voce antes mesmo de chegar no fim da pagina.
+                Aplicamos o melhor das referencias que voce trouxe: direcao de arte forte,
+                narrativa de autoridade, prova social e animacoes de alto nivel para transformar
+                percepcao em valor de negocio.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -219,7 +242,7 @@ export default function Portfolio() {
                   href="#projects"
                   className="inline-flex items-center justify-center gap-2 bg-primary px-6 py-3 font-mono-ui text-[0.72rem] uppercase tracking-[0.24em] text-white transition hover:bg-primary/90"
                 >
-                  ver os cases
+                  explorar cases
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
@@ -231,23 +254,23 @@ export default function Portfolio() {
               </div>
 
               <div className="mt-12 grid gap-4 sm:grid-cols-3">
-                <HeroMetric value="+Autoridade" label="mensagem objetiva e posicionamento forte" />
-                <HeroMetric value="+Confianca" label="provas, metodo e linguagem de negocio" />
-                <HeroMetric value="+Conversao" label="cta estrategico em pontos criticos" />
+                <HeroMetric value="Impacto visual" label="primeira impressao premium em segundos" />
+                <HeroMetric value="Narrativa clara" label="do problema ate a decisao" />
+                <HeroMetric value="Entrega senior" label="design, codigo e estrategia em sintonia" />
               </div>
             </div>
 
             <div className="relative">
-              <div className="border border-white/10 bg-[rgba(255,255,255,0.03)] p-4 sm:p-6">
-                <div className="border border-white/8 bg-[#080808] p-6 sm:p-8">
+              <div className="glass-shell p-4 sm:p-6">
+                <div className="glass-core p-6 sm:p-8">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="font-mono-ui text-[0.62rem] uppercase tracking-[0.32em] text-white/38">
-                        estrutura de alta conversao
+                        experiencia interativa premium
                       </p>
                       <p className="mt-2 max-w-sm text-sm leading-6 text-white/58">
-                        Referencias de estudio criativo e SaaS B2B aplicadas no seu portfolio de
-                        forma direta e sem perder identidade.
+                        Elementos cineticos, hierarquia editorial e microinteracoes para guiar o
+                        olhar e elevar percepcao de valor.
                       </p>
                     </div>
                     <span className="inline-flex items-center gap-2 font-mono-ui text-[0.62rem] uppercase tracking-[0.22em] text-primary">
@@ -267,13 +290,13 @@ export default function Portfolio() {
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     <InsightCard
                       icon={ShieldCheck}
-                      title="Confianca imediata"
-                      text="Oferta, prova e metodo aparecem cedo para reduzir friccao."
+                      title="Credibilidade imediata"
+                      text="Prova social, resultados e stack entram no momento certo da leitura."
                     />
                     <InsightCard
                       icon={Workflow}
-                      title="Jornada guiada"
-                      text="Cada secao prepara a proxima ate o contato final."
+                      title="Fluxo sem atrito"
+                      text="Cada animacao reforca compreensao, sem virar distracao."
                     />
                   </div>
                 </div>
@@ -292,6 +315,33 @@ export default function Portfolio() {
           </div>
         </div>
 
+        <section className="border-b border-white/8 bg-[#090909] px-5 py-12 sm:px-8">
+          <div className="mx-auto max-w-7xl">
+            <p className="font-mono-ui text-[0.62rem] uppercase tracking-[0.3em] text-white/42">
+              trusted framework
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {trustLogos.map((logo) => (
+                <div
+                  key={logo}
+                  className="border border-white/10 bg-white/[0.02] px-5 py-4 text-center font-mono-ui text-[0.68rem] uppercase tracking-[0.2em] text-white/58 transition hover:border-primary/35 hover:text-white"
+                >
+                  {logo}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {proofStats.map((stat) => (
+                <div key={stat.label} className="border border-white/10 bg-[#101010] p-5">
+                  <p className="font-display text-4xl uppercase text-white">{stat.value}</p>
+                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-white/48">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section
           id="capabilities"
           ref={capabilitiesRef.elementRef}
@@ -303,12 +353,12 @@ export default function Portfolio() {
                 especialidades
               </p>
               <h2 className="mt-4 font-display text-4xl uppercase leading-none text-white sm:text-5xl">
-                Os pilares que deixam seu portfolio mais maduro.
+                UX/UI de alto nivel, com objetivo comercial.
               </h2>
               <div className="mt-5 h-[2px] w-12 bg-primary shadow-[0_0_18px_rgba(255,0,0,0.25)]" />
               <p className="mt-6 text-base leading-8 text-white/62">
-                O objetivo aqui e simples: manter seu DNA visual e elevar percepcao de valor com
-                estrutura, argumento e acabamento de produto serio.
+                Inspirado por estudios criativos e produtos SaaS premium: composicao cinematica,
+                copy estrategica e leitura fluida.
               </p>
             </div>
 
@@ -351,12 +401,12 @@ export default function Portfolio() {
                   cases
                 </p>
                 <h2 className="mt-4 font-display text-4xl uppercase leading-none text-white sm:text-5xl">
-                  Exemplos de narrativa aplicada no seu portfolio.
+                  Cases com estetica premium e entrega orientada a resultado.
                 </h2>
               </div>
               <p className="max-w-xl text-base leading-8 text-white/62">
-                Cada case foi desenhado para mostrar contexto, decisao e impacto. Isso muda sua
-                percepcao de "fazedor" para "parceiro estrategico".
+                Cada bloco foi desenhado para parecer memoravel e, ao mesmo tempo, pragmatico.
+                Visual forte sem perder clareza nem direcao de negocio.
               </p>
             </div>
 
@@ -393,7 +443,7 @@ export default function Portfolio() {
 
                     <div className="mt-8 flex items-center gap-2 font-mono-ui text-[0.66rem] uppercase tracking-[0.2em] text-white/56">
                       <ChevronRight className="h-4 w-4 text-primary" />
-                      leitura orientada a negocio
+                      arquitetura visual + impacto comercial
                     </div>
                   </div>
                 </article>
@@ -413,12 +463,12 @@ export default function Portfolio() {
                 metodo
               </p>
               <h2 className="mt-4 font-display text-4xl uppercase leading-none text-white sm:text-5xl">
-                Como transformamos visual em percepcao de valor.
+                Metodo de execucao em 4 etapas.
               </h2>
               <div className="mt-5 h-[2px] w-12 bg-primary" />
               <p className="mt-6 max-w-xl text-base leading-8 text-white/62">
-                O processo combina estrategia de comunicacao, direcao visual e clareza tecnica.
-                Resultado: portfolio elegante, confiante e pronto para vender projetos maiores.
+                Unimos discovery, direcao de arte e engenharia de interface para chegar em uma
+                experiencia que impressiona e converte.
               </p>
 
               <div className="mt-10 border border-white/8 bg-[#101010] p-7">
@@ -463,15 +513,15 @@ export default function Portfolio() {
           <div className="cta-radial" />
           <div className="relative z-10 mx-auto max-w-5xl">
             <p className="font-mono-ui text-[0.66rem] uppercase tracking-[0.34em] text-primary">
-              pronto para subir o nivel do portfolio
+              pronto para sair do comum
             </p>
             <h2 className="mt-6 font-display text-5xl uppercase leading-[0.9] text-white sm:text-6xl lg:text-7xl">
-              Transforme visitas em
-              <span className="block text-white/18">projetos de maior valor</span>
+              Seu portfolio no
+              <span className="block text-white/18">nivel epico que voce imaginou</span>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/62 sm:text-lg">
-              Aplicamos tecnicas de estudios criativos e produtos SaaS: narrativa clara, prova de
-              maturidade e chamada para acao em todos os pontos decisivos.
+              Se o objetivo e parecer memoravel, maduro e premium, esse e o caminho: design forte,
+              UX inteligente e narrativa que vende valor sem exagero.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
